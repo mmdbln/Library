@@ -1,0 +1,4 @@
+com/mapsa/library/model/dto/MemberDTO.class
+com/mapsa/library/model/dto/MemberDTO$MemberDTOBuilder.class
+com/mapsa/library/controllers/LibraryController.class
+com/mapsa/library/model/dto/PersonDTO.class
