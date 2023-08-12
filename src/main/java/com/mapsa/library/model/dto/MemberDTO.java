@@ -8,6 +8,5 @@ import lombok.EqualsAndHashCode;
 @Data
 @Builder
 public class MemberDTO extends PersonDTO{
-    private Long id;
     private Integer code;
 }

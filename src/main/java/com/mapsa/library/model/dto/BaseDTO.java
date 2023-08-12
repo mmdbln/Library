@@ -6,12 +6,9 @@ import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.Instant;
 @Data
-
-
 public class BaseDTO {
-    private Long id;
-    private Instant creationTime;
-    private Instant updateDate;
-    private Boolean isDeleted;
+    public Instant creationTime ;
+    public Instant updateDate;
+    public Boolean isDeleted = false;
 
 }

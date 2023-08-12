@@ -11,9 +11,6 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "librarian")
-public class LibrarianEntity extends BaseEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class LibrarianEntity extends PersonEntity {
     private Integer code;
 }

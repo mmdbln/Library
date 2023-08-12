@@ -1,0 +1,1 @@
+<context:component-scan base-package="java.com.mapsa.library.services.BaseService" />

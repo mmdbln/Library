@@ -11,7 +11,6 @@ import java.util.List;
 @Data
 @Builder
 public class LibraryDTO extends BaseDTO{
-    private Long id;
     private String libraryName;
     private List<BookEntity> bookEntity;
 }

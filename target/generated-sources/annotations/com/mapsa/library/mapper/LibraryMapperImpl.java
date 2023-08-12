@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-08-06T19:21:43+0330",
+    date = "2023-08-12T19:38:36+0330",
     comments = "version: 1.5.2.Final, compiler: javac, environment: Java 17.0.8 (Private Build)"
 )
 @Component
@@ -22,16 +22,18 @@ public class LibraryMapperImpl implements LibraryMapper {
             return null;
         }
 
-        LibraryEntity.LibraryEntityBuilder libraryEntity = LibraryEntity.builder();
+        LibraryEntity libraryEntity = new LibraryEntity();
 
-        libraryEntity.id( d.getId() );
-        libraryEntity.libraryName( d.getLibraryName() );
+        libraryEntity.setCreationTime( d.getCreationTime() );
+        libraryEntity.setUpdateDate( d.getUpdateDate() );
+        libraryEntity.setIsDeleted( d.getIsDeleted() );
+        libraryEntity.setLibraryName( d.getLibraryName() );
         List<BookEntity> list = d.getBookEntity();
         if ( list != null ) {
-            libraryEntity.bookEntity( new ArrayList<BookEntity>( list ) );
+            libraryEntity.setBookEntity( new ArrayList<BookEntity>( list ) );
         }
 
-        return libraryEntity.build();
+        return libraryEntity;
     }
 
     @Override
@@ -42,7 +44,6 @@ public class LibraryMapperImpl implements LibraryMapper {
 
         LibraryDTO.LibraryDTOBuilder libraryDTO = LibraryDTO.builder();
 
-        libraryDTO.id( e.getId() );
         libraryDTO.libraryName( e.getLibraryName() );
         List<BookEntity> list = e.getBookEntity();
         if ( list != null ) {

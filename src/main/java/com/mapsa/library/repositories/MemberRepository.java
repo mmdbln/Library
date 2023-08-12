@@ -1,4 +1,6 @@
 package com.mapsa.library.repositories;
 
-public interface MemberRepository extends BaseRepository {
+import com.mapsa.library.model.domain.MemberEntity;
+
+public interface MemberRepository extends BaseRepository<MemberEntity> {
 }

@@ -19,11 +19,11 @@ public class BaseEntity {
     private Long id;
 
     @CreatedDate
-    private Instant creationTime;
+    private Instant creationTime = Instant.now();
 
     @LastModifiedDate
     private Instant updateDate;
-    private Boolean isDeleted;
+    private Boolean isDeleted = false;
 
 
 

@@ -1,58 +1,56 @@
 package com.mapsa.library.services;
 
+import com.mapsa.library.exceptions.BorrowedYetException;
+import com.mapsa.library.exceptions.NotFoundException;
 import com.mapsa.library.mapper.BaseMapper;
 import com.mapsa.library.model.domain.BaseEntity;
-import com.mapsa.library.model.domain.PersonEntity;
 import com.mapsa.library.model.dto.BaseDTO;
-import com.mapsa.library.model.dto.PersonDTO;
+import com.mapsa.library.repositories.BaseRepository;
+import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.swing.text.html.parser.Entity;
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public abstract class BaseService<T extends BaseDTO,S extends BaseMapper<BaseEntity, BaseDTO>> {
+public abstract class BaseService<T extends BaseDTO, E extends BaseEntity, M extends BaseMapper<E, T>, R extends BaseRepository<E>> {
+    @Autowired
+    protected M mapper;
+    @Autowired
+    protected R repository;
 
-    S mapper ;
+    public BaseService(M mapper, R repository) {
+        this.mapper = mapper;
+        this.repository = repository;
+    }
 
-
-    Optional<T> getWId(Long id);
-
-    T create(T t);
-
-    T update(T tUpdate);
-
-    Boolean deleteById(Long id);
-
-    List<T> getAll();
-
-
-    public Optional<PersonDTO> getWId(Long id) {
+    public Optional<T> getWId(Long id) {
         return Optional.ofNullable(mapper.entityToDto(repository.findById(id).orElse(null)));
 
     }
 
-    @Override
-    public PersonDTO create(PersonDTO personDTO) {
-        PersonEntity ent = repository.save(mapper.dtoToEntity(personDTO));
-        return mapper.entityToDto(ent);    }
+    public T create(T t) throws Exception {
+        E ent = repository.save(mapper.dtoToEntity(t));
+        return mapper.entityToDto(ent);
+    }
 
-    @Override
-    public PersonDTO update(PersonDTO tUpdate) {
-        PersonEntity entity = repository.save(mapper.dtoToEntity(tUpdate));
-        return mapper.entityToDto(entity);    }
+    public T update(T tUpdate) throws Exception {
+        E entity = repository.save(mapper.dtoToEntity(tUpdate));
+        return mapper.entityToDto(entity);
+    }
 
-    @Override
     public Boolean deleteById(Long id) {
-        PersonEntity entity = repository.findAll()
+        E entity = repository.findAll()
                 .stream()
-                .filter(item->item.getId().equals(id)).findFirst().orElse(null);
+                .filter(item -> item.getId().equals(id)).findFirst().orElse(null);
         if (entity == null || entity.getIsDeleted())
             return false;
         entity.setIsDeleted(true);
         return true;
     }
-    public List<PersonDTO> getAll() {
+
+    public List<T> getAll() {
         return repository.findAll()
                 .stream()
                 .map(mapper::entityToDto)

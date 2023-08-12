@@ -14,13 +14,10 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Table(name = "Borrow")
 public class BorrowEntity extends BaseEntity{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     private LocalDate startDate;
     private LocalDate endDate;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "book_id")
     BookEntity bookEntity;
 

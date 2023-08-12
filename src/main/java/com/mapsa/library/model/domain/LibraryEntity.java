@@ -9,16 +9,11 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "Library")
-public class LibraryEntity  extends PersonEntity{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class LibraryEntity  extends BaseEntity {
     private String libraryName;
     @OneToMany(mappedBy = "libraryEntity")
     List<BookEntity> bookEntity;
-
 }
